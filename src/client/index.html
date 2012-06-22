@@ -32,7 +32,7 @@ limitations under the License.
         if (document.body) {
           var err = document.createElement('div');
           msg = msg.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          err.innerHTML = '<div style="position: absolute; left: 50%; width: 80em; margin-left: -40em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif; white-space: pre; z-index: 1000;">' + msg + '</div>';
+          err.innerHTML = '<div style="position: absolute; left: 50%; width: 80em; margin-left: -40em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif; white-space: pre;">' + msg + '</div>';
           document.body.appendChild(err);
         } else {
           alert("Grits says, \"Guess what just happened?\"\n"

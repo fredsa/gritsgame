@@ -316,7 +316,7 @@ background-image: url(../img/scroll_horiz_mid.jpg);
     font-size: 13pt;
 	color: yellow;
 	opacity: 1;
-	z-index:1;
+	z-index:1000;
 	text-shadow: 1px 1px 1px #000;
 }
 
