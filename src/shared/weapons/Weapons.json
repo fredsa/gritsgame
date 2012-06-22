@@ -1,0 +1,101 @@
+{
+	"weapons":[
+	{
+		"itemID": "1234",
+		"displayName": "Machine Gun",
+		"displayDesc": "This is your standard issue machine gun",
+		"priceInCredits": 0,
+		"type": 0,
+		"dmg": 5,
+		"fireRate": 10,
+		"icon": "icon_machinegun",
+		"energyCost": 2,
+		"logicClass": "MachineGun"
+	},
+	{
+		"itemID": "4123",
+		"displayName": "Landmines",
+		"displayDesc": "Drop a land mine and wait for results. Lifetime is 10 seconds",
+		"priceInCredits": 44,
+		"type": 2,
+		"dmg": 10,
+		"fireRate": 10,
+		"icon": "icon_landmine",
+		"energyCost": 2,
+		"logicClass": "Landmine"
+	},
+	{
+		"itemID": "1232",
+		"displayName": "Grenade Launcher",
+		"displayDesc": "It's super fun for your kids!",
+		"priceInCredits": 100,
+		"type": 1,
+		"dmg": 10,
+		"fireRate": 10,
+		"icon": "icon_grenade_launcher",
+		"energyCost": 2,
+		"logicClass": "BounceBallGun"
+	},
+	{
+		"itemID": "4124",
+		"displayDesc": "Take THAT Master Chef",
+		"displayName": "Energy Sword",
+		"priceInCredits": 64,
+		"type": 2,
+		"dmg": 10,
+		"fireRate": 10,
+		"icon": "icon_shield_offensive",
+		"energyCost": 2,
+		"logicClass": "Sword"
+	},
+	{
+		"itemID": "8234",
+		"displayDesc": "Great close-range weapon",
+		"displayName": "Shotgun",
+		"priceInCredits": 64,
+		"type": 0,
+		"dmg": 10,
+		"fireRate": 10,
+		"icon": "icon_shotgun",
+		"energyCost": 2,
+		"logicClass": "ShotGun"
+	},
+	{
+		"itemID": "4188",
+		"displayDesc": "Great protection for evacuation",
+		"displayName": "Shield",
+		"priceInCredits": 64,
+		"type": 2,
+		"dmg": 10,
+		"fireRate": 10,
+		"icon": "icon_shield_defensive",
+		"energyCost": 2,
+		"logicClass": "Shield"
+	},
+	{
+		"itemID": "1134",
+		"displayDesc": "Mow down your enemies, fast like",
+		"displayName": "Chain Gun",
+		"priceInCredits": 64,
+		"type": 0,
+		"dmg": 10,
+		"fireRate": 10,
+		"icon": "icon_chaingun",
+		"energyCost": 2,
+		"logicClass": "ChainGun"
+	},
+	{
+		"itemID": "4805",
+		"displayDesc": "IT SHOOTS ROCKETS!",
+		"displayName": "Rocket Launcher",
+		"priceInCredits": 64,
+		"type": 1,
+		"dmg": 10,
+		"fireRate": 10,
+		"icon": "icon_rocket_launcher",
+		"energyCost": 2,
+		"logicClass": "RocketLauncher"
+	}
+	
+
+]}

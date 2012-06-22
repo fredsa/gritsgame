@@ -1,0 +1,612 @@
+<!-- Copyright 2011 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+  
+  <head>
+	
+		<meta property="og:title" content="GRITS : PvP Gaming in HTML5"/>
+		<meta property="og:image" content="img/icon_lrg.png"/>
+		<meta property="og:description" content="Fight robots the right way, in your web browser!"/>
+		
+
+    <script>
+    
+    
+      window.onerror = function (msg, url, line) {
+        msg = msg.replace(/^Uncaught /, '')
+        // TODO(fredsa): Make this prettier, log to the server
+        if (document.body) {
+          var err = document.createElement('div');
+          msg = msg.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          err.innerHTML = '<div style="position: absolute; left: 50%; width: 80em; margin-left: -40em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif; white-space: pre; z-index: 1000;">' + msg + '</div>';
+          document.body.appendChild(err);
+        } else {
+          alert("Grits says, \"Guess what just happened?\"\n"
+                + "----------\n"
+                + msg + "\n"
+                + "----------\n"
+                + url + "\n"
+                + "line number " + line + "\n"
+          );
+        }
+        return false;
+      }
+    </script>
+
+    <title>GRITS</title>
+    <style type="text/css">
+    
+    </style>
+	<link href="./css/grits.css" rel="stylesheet" />
+	<link href="./css/grits_ui.css" rel="stylesheet" />
+	
+	
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="./scripts/yepnope.1.5.3-min.js"></script>
+    <script type="text/javascript" src="./scripts/mrdoob-stats.js"></script>
+	
+    <script async>
+      // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+      window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function ( /* function */ callback, /* DOMElement */ element) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+      })();
+    </script>
+
+		
+    <script type="text/javascript" id="GENERALJS">
+      //-----------------------------------------
+      var $doc = function (selector) {
+          return selector.charAt(0) == '#' ? document.getElementById(selector.substr(1)) : document.getElementsByTagName(selector);
+        };
+
+      //-----------------------------------------
+      var $new = function (name) {
+          return document.createElement(name);
+        };
+		
+		function checkWait(conditionFunction, resultFunction)
+		{
+			var tev = setInterval(function()
+				{
+					if(conditionFunction())
+					{
+						resultFunction(); 
+						clearInterval(tev)
+					}
+				}, 1000);
+		}
+	
+    </script>
+    <!-- AUTH / LOGIN -->
+	<script type="text/javascript" src="./scripts/pregame/oauthlogin.js"></script>
+	<script type="text/javascript" src="./scripts/pregame/social.js"></script>
+	<script type="text/javascript" src="./scripts/pregame/xhr.js"></script>
+	<script type="text/javascript" src="./scripts/pregame/assetloader.js"></script>
+	<script type="text/javascript" src="../shared/core/core.js"></script>
+	<script type="text/javascript" src="./scripts/core/soundManager.js"></script>
+	<script type="text/javascript">
+		xhrGet("../shared/weapons/Weapons.json", false, function(resp) {
+			eval('gWeapons_DB = ' + resp.responseText);
+		});
+	</script>
+	
+    <script type="text/javascript">
+      IS_SERVER = false;
+	
+      var init = function () {
+	
+			gSM.init();
+			var sound = gSM.loadAsync("./sound/bg_menu.ogg", function(s)
+					{
+						gSM.playSound("./sound/bg_menu.ogg",{looping:true,volume:0.25}); 
+					}
+					);
+			var menu_bump = gSM.loadAsync("./sound/menu_bump.ogg", function() { } );
+			var menu_select = gSM.loadAsync("./sound/menu_select.ogg", function() { } );
+			
+		}
+        //-----------------------------------------
+        document_onload = function () {
+
+          $(document).bind("contextmenu", function (e) {
+            return false;
+          });
+		  
+			popupOnPageLoad();
+			
+			
+          init();
+        };
+      
+     
+	 var showDoobStats = function()
+	 {
+		
+          mrdoob_stats.getDomElement().style.position = 'absolute';
+          mrdoob_stats.getDomElement().style.left = '100px';
+          mrdoob_stats.getDomElement().style.top = '0px';
+          document.body.appendChild(mrdoob_stats.getDomElement());
+	 }
+	 
+		//------------------
+      var loadGame = function (gameURL, player_game_key) {
+
+		mrdoob_stats = new Stats();
+		
+          var inputScripts = [
+            // Shared scripts
+			"../shared/core/core.js",
+            "../shared/core/box2D.js",
+            "../shared/core/Constants.js",
+            "../shared/core/Factory.js",
+            "../shared/core/Timer.js",
+            "../shared/core/Entity.js",
+            "../shared/core/GameEngine.js",
+            "../shared/core/PhysicsEngine.js",
+            "../shared/core/Player.js",
+            "../shared/core/TileMap.js",
+            "../shared/core/Weapon.js",
+            "../shared/core/WeaponInstance.js",
+            "../shared/core/Logger.js",
+            "../shared/core/Util.js",
+
+            //"../shared/maps/map1.js",
+            "../shared/maps/map1.js",
+
+            "../shared/environment/SpawnPoint.js",
+            "../shared/environment/Teleporter.js",
+            "../shared/environment/Spawner.js",
+
+			"../shared/items/HealthCanister.js",
+            "../shared/items/EnergyCanister.js",
+            "../shared/items/QuadDamage.js",
+
+            "../shared/weapons/Landmine.js",
+            
+			"../shared/weapons/ShotGun.js",
+			"../shared/weapons/RocketLauncher.js",
+			"../shared/weapons/Shield.js",
+			"../shared/weapons/Thrusters.js",
+			"../shared/weapons/ChainGun.js",
+            "../shared/weapons/MachineGun.js",
+            "../shared/weapons/Sword.js",
+            "../shared/weapons/BounceBallGun.js",
+            
+			"../shared/weaponinstances/SimpleProjectile.js",
+            
+            "../shared/weaponinstances/BounceBallBullet.js",
+			"../shared/weaponinstances/LandmineDisk.js",
+			"../shared/weaponinstances/Shield.js",
+			"../shared/weaponinstances/Sword.js",
+			
+			//CLM note , we need to load the client scripts AFTER the shared scripts
+			//allowing them to overload any global objects defined above.
+            // Client-side scripts
+            "./scripts/core/ClientGameEngine.js",
+            "./scripts/core/ClientPlayer.js",
+            "./scripts/core/InputEngine.js",
+            "./scripts/core/RenderEngine.js",
+            "./scripts/core/SpriteSheet.js",
+
+            "./scripts/gui/HotSpot.js",
+            "./scripts/gui/LightBox.js",
+            "./scripts/gui/GuiEngine.js",
+
+			"./scripts/effects/InstancedEffect.js",
+			"./scripts/effects/PlayerSpawnEffect.js",
+			"./scripts/effects/QuadPowerEffect.js",
+			"./scripts/effects/ClientBounceBallImpact.js",
+			
+			"./scripts/items/ClientHealthCanister.js",
+            "./scripts/items/ClientEnergyCanister.js",
+            "./scripts/items/ClientQuadDamage.js",
+
+			
+			"./scripts/weapons/ShotGun.js",
+            "./scripts/weapons/ClientLandmine.js",
+			"./scripts/weapons/ClientChainGun.js",
+			"./scripts/weapons/ClientRocketLauncher.js",
+            "./scripts/weapons/ClientMachineGun.js",
+            "./scripts/weapons/ClientBounceBallGun.js",
+			"./scripts/weapons/Thrusters.js",
+            
+
+            
+            "./scripts/weaponinstances/ClientBounceBallBullet.js",
+			"./scripts/weaponinstances/ClientLandmineDisk.js",
+			
+
+            // Misc scripts
+            gameURL+"/../socket.io/socket.io.js",
+            gameURL+"/../protoize.js",
+			"../shared/core/loop.js"
+                          ];
+
+        
+          yepnope({
+            load: inputScripts,
+            complete:	function()
+			{
+				gGameEngine.preloadAssets();
+				checkWait(
+					function()
+					{
+						return gGameEngine.preloadComplete;
+					},
+					function () 
+					{
+						gameLoadComplete(gameURL,
+                                                  player_game_key);
+					}
+				);
+			}			
+			
+          });
+
+
+
+
+        };
+		function readyToRock() {
+
+            Logger.log("Ready to rock");
+
+            //kick off our animation
+            requestAnimFrame(run);
+
+            loop_run(1000, function () {
+              gGameEngine.gSocket.send_ping({
+                now: new Date().getTime()
+              });
+            });
+          }
+		  
+		function gameLoadComplete(gameURL, player_game_key)
+		{
+			  var packet_handler = {
+				welcome: function (msg) {
+				  var p0 = gGameEngine.namedEntities[msg.youare];
+				  if (!p0) alert('no player ' + msg.youare);
+				  p0.toOthers = p0.toAll = gGameEngine.gSocket;
+				  p0.color = msg.color;
+				  gGameEngine.gPlayer0 = p0;
+				  readyToRock();
+
+				  Logger.log("welcome " + msg.youare);
+                                },
+				pong: function (msg) {
+				  var now = new Date().getTime();
+				  var lag = now - msg.now;
+				  //Logger.log('lag = ' + lag);
+				},
+				wasd: function(msg) {
+				  //console.log('>>>>>>>>>>>>>>>>>>>>WASD: ', msg);
+				  for (c in msg) {
+				    evt=document.createEvent("Events");
+				    evt.initEvent(msg[c] ? 'keydown' : 'keyup', true, true);
+				    evt.view = window;
+				    evt.keyCode = c.charCodeAt(0);
+				    evt.charCode = c.charCodeAt(0);
+				    window.dispatchEvent(evt);
+				  }
+				},
+				spawn: function (msg) {
+				  gGameEngine.spawnEntity(msg.type, msg.x, msg.y, JSON.parse(msg.settings));
+				},
+				unspawn: function (msg) {
+				  gGameEngine.unspawnPlayer(msg.id);
+				},
+				collision: function(msg) {
+					gGameEngine.on_collision(msg);
+				},
+				statusMsg:function(msg) {
+					printMsg(msg.msg);
+				},
+				DEFAULT: function(msg, name) {
+				  if (msg.from) {
+                                        var ent = gGameEngine.namedEntities[msg.from];
+                                        if (!ent) {
+                                          //Logger.log("no entity named '" +    msg.from + "'");
+                                        } else if (ent['on_'+name]) {
+					  ent['on_'+name](msg);
+					}
+				  }
+				}
+			  };
+		  
+			disablePopup();
+					  //load our game and move the world forward.
+					  
+					  document.getElementById("impress").style.display="none";
+					  document.getElementById('welcomescreen').style.display = "none";
+					  document.getElementById("game_canvas").style.display="block";
+					  
+					  Logger.log("loaded scripts");
+
+					  gInputEngine.setup();
+					  gRenderEngine.setup();
+					  gGameEngine.setup();
+					  Logger.log("setup engines");
+
+					gSM.stopAll();
+					gSM.playSound("./sound/bg_game.ogg", {looping:true,volume:0.25} );
+		
+					
+					  Logger.log("connecting to server: " + gameURL);
+                                          gGameEngine.gSocket = protoize(io.connect(gameURL), packet_handler);
+                                          gGameEngine.gSocket.send_hello({
+                                            player_game_key: player_game_key
+                                          });
+					  gGameEngine.gSocket.on('disconnect', function() {
+						alert("Games server disconnected.");
+						window.location.href = "/";
+					  });
+		}
+	
+      //-----------------------------------------
+      var run = function () {
+          //check for resizes and adjust accordingly.
+          if (gRenderEngine.canvas.width != window.innerWidth) {
+            gRenderEngine.canvas.width = window.innerWidth;
+          }
+          if (gRenderEngine.canvas.height != window.innerHeight) {
+            gRenderEngine.canvas.height = window.innerHeight;
+          }
+
+          
+		  gRenderEngine.context.clearRect ( 0 , 0 , gRenderEngine.canvas.width, gRenderEngine.canvas.height );
+		  gGameEngine.run();
+		  if(mrdoob_stats)
+			mrdoob_stats.update();
+          requestAnimFrame(run);
+
+
+        };
+      //-----------------------------------------
+	  var msgBoxTimer=null;
+	  var msgBoxOpacityTimer=null;
+	  function printMsg(msg)
+	  {
+		if(msgBoxTimer != null)
+		{
+			clearInterval(msgBoxTimer);
+			clearInterval(msgBoxOpacityTimer);
+		}
+		var divv = document.getElementById("msgbox");
+		divv.style.opacity=1.0;
+		divv.innerHTML = msg;
+		msgBoxTimer = setInterval(function()
+				{
+					clearInterval(msgBoxTimer);
+					msgBoxOpacityTimer = setInterval(function()
+					{
+						divv.style.opacity-=1.0/60;
+						if(divv.style.opacity <=0)
+							clearInterval(msgBoxOpacityTimer);
+							
+					}, 1000/60);
+				}, 3000);
+		
+	  }
+      //do not touch this.
+      document.addEventListener('DOMContentLoaded', document_onload, false);
+	  
+    </script>
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32334731-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+	
+  <body id="mainbody">
+  	<img src="./img/icon_lrg.png" style="display:none;position:absolute;top:0;left:0;">
+    <div id="sorrybody" style="display:none">
+  	Sorry, this page is optimized for Desktop versions of Chrome.
+	  </div>
+
+
+    <div id="bodycontent">
+		<div id="welcomescreen">
+        
+			<div id="impress" class="impress-not-supported">
+
+				<!-- MAIN MENU -->
+				<div id='UI_MainMenu' class="step slide" data-x="-1000" data-y="-1500">
+					<center>
+					<img class='logo'  src='./img/blank.png'>
+					<img class='robot' src='./img/blank.png'>
+					<br>
+					<a href='#' onclick='playSoundInstance("./sound/menu_select.ogg");goto_findGame()' onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img class='quick_game_btn' src='./img/blank.png' style='position:absolute;top:575px;left:175px;'></a>&nbsp;&nbsp;&nbsp;<a href='#' onclick='playSoundInstance("./sound/menu_select.ogg");dologin()' onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img src='./img/blank.png' class='login_btn' style='position:absolute;top:575px;left:475px;'></a>
+					
+					<div>
+					</div>
+					<div id='loading_progressbar'>&nbsp;</div>
+					</center>
+				</div>
+				
+				
+				<!-- PROFILE PAGE -->
+				<div id='UI_ProfileMenu' class="step slide" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
+					
+						<div id='profile_header' style='min-height:128px;'>
+						
+						</div>
+						
+						<img class='background_list' style='position:absolute;top:200px;left:36px;overflow:auto;' src='./img/blank.png'> 
+						<div id='profile_friendslist' class='profile_friends'></div>
+						
+						
+						
+						<div class='profile_options'> 
+							<a href='#' onclick='playSoundInstance("./sound/menu_select.ogg");goto_findGame()' onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img class='quick_game_btn' src='./img/blank.png'></a><br><br>
+							<img class='store_soon_btn' src='./img/blank.png'><br><br>
+							<a href='#' onclick='playSoundInstance("./sound/menu_select.ogg");dologout();goto_mainmenu()' onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img class='logout_btn' src='./img/blank.png'></a>
+						</div>
+					
+				</div>
+				
+				
+				<!-- STORE -->
+				<div id='UI_StoreMenu' class="step slide" data-x="3825" data-y="3325" data-z="3000" data-rotate="65" data-scale="1">
+					<center>
+							<img class='store_title' src='./img/blank.png'><div id='UI_StoreMenu_creditsnumber'></div>
+					</center>
+							<div id='UI_StoreMenu_inventory' class='background_store' style='position:absolute;top:100px;left:36px; height: 506px;'></div>
+					<center>
+							<a href='#' onclick='playSoundInstance("./sound/menu_select.ogg");goto_profile()'  onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img class='back_btn' src='./img/blank.png' style='position:absolute;top:600px;left:336px;'></a>
+					</center>
+				</div>
+		
+		
+		
+			</div>
+		</div>
+		
+		<!-- GAME CANVAS -->
+		<div id='game_canvas'>
+			<canvas id='canvas' width="800px" height="600px"></canvas>
+			<div id='canvasui' name='canvasui'>
+				<!-- don't do this yet. <a href='#' onclick='goto_ingameoptions();' onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img class='pause_btn' ></a> -->
+				<div id='msgbox'>&nbsp;</div>
+			</div>
+		</div>
+	</div>
+
+   	<script>
+		if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/) || 
+			!navigator.userAgent.match(/(Chrome)/)	) {	
+			document.getElementById("sorrybody").style.display = "block";	
+			document.getElementById("bodycontent").style.display = "none";
+		}
+		
+	</script>
+	
+	
+			
+	<!-- QR CODE FOR WASD -->		
+	<div id='pc_qrTile' style="display:none;">
+		<a href='https://play.google.com/store/apps/details?id=grits.wasd' target='_blank'>
+						<!-- http://chart.apis.google.com/chart?cht=qr&chs=230x230&chld=L&choe=UTF-8&chl=market%3A%2F%2Fdetails%3Fid%3Dgrits.wasd -->
+						<img src='./img/grits.wasd.png'>
+					</a>
+	</div>
+	
+	<!-- BLOCKING POPUP --> 
+	<div id='popupContact'>
+		<!--<a id='popupContactClose'><img class='popup_x_btn' src='./img/blank.png'></a>-->
+		<div id='popupContent' style='color:white;opacity:1;background:#000000;width:100%;height:100%;'>
+		
+				<div id='pc_gamesearch' style="display:none;">
+					<center><img src='img/loading.gif'> <br>Looking for game...</center>
+				</div>
+				
+				<div id='pc_loadinggame' style="display:none;">
+					<center><img src='img/loading.gif'> <br>GAME FOUND<br>Loading Content...<br><img src="img/controls.png" style="position:absolute; top:100px; left:-200px;"></center>
+				</div>
+				
+				<div id='pc_in-opts' style="display:none;">
+					<center><img class='pause_logo' src='./img/blank.png'><br><br><br><img class='leavegame_btn' src='./img/blank.png'><br><br><br> <a href="#" onclick="playSoundInstance('./sound/menu_select.ogg');disablePopup()" onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img class='return_btn' src='./img/blank.png'></a>
+					<br>
+						<a href='#' onclick='playSoundInstance("./sound/menu_select.ogg");dologout();goto_mainmenu()' onmouseover="playSoundInstance('./sound/menu_bump.ogg')"><img class='logout_btn' src='./img/blank.png'></a></center>
+				</div>
+				
+				<div id='pc_spawnscreen' style="display:none;">
+					<div id='scoreScreen'></div>
+					<a href='#' onclick='playSoundInstance("./sound/menu_select.ogg");gGameEngine.requestRespawn();disablePopup();' onmouseover="playSoundInstance('./sound/menu_bump.ogg')"> <img class='respawn_title' src='./img/blank.png'></a><br/>
+					<img class='background_small' style='position:absolute;top:80px;left:0px;overflow:auto;' src='./img/blank.png'> 
+
+					<div id="loadout" style="position:absolute; top:40px, left:36px; width:383px; height:370px;">
+				
+						<div id="primary-weapon-slot" class="spawn_primary-weapon-slot" onclick="playSoundInstance('./sound/menu_select.ogg');toggle_spawn_inv_panel(0);" onmouseover="playSoundInstance('./sound/menu_bump.ogg')" style="position:absolute; top:170px; left:15px;  height:48px; width:48px; border:1px solid black;"></div>
+						<div id="secondary-weapon-slot" class="spawn_secondary-weapon-slot"  onclick="playSoundInstance('./sound/menu_select.ogg');toggle_spawn_inv_panel(1);" onmouseover="playSoundInstance('./sound/menu_bump.ogg')" style="position:absolute; top:170px; left:333px; height:48px; width:48px; border:1px solid black;"></div>
+						<div id="item-slot" class="spawn_item-slot"  onclick="playSoundInstance('./sound/menu_select.ogg');toggle_spawn_inv_panel(2);" onmouseover="playSoundInstance('./sound/menu_bump.ogg')" style="position:absolute; top:294px; left:171px;  height:48px; width:48px; border:1px solid black;"></div>
+						
+						<img class='robot_base' src='./img/blank.png'> 
+						<img class='chaingun' src='./img/blank.png'> 
+						<img class='rocket_launcher' src='./img/blank.png'> 
+						<img class='defensive_shield' src='./img/blank.png'> 
+						<img class='icon_line_left' src='./img/blank.png'> 
+						<img class='icon_line_right' src='./img/blank.png'> 
+						<img class='icon_line_bottom' src='./img/blank.png'> 
+					
+						<div id="inventory-container-primary" class="spawn_inventory-container-primary"></div>
+						<div id="inventory-container-secondary" class="spawn_inventory-container-secondary"></div>
+						<div id="inventory-container-item" class="spawn_inventory-container-item"></div>
+						
+							
+						<img id='spawn_bracket_primary' class='bracket_left' src='./img/blank.png'> 
+						<img id='spawn_bracket_secondary' class='bracket_right' src='./img/blank.png'> 
+						<img id='spawn_bracket_item' class='bracket_bottom' src='./img/blank.png'> 
+						
+					</div>
+				</div>
+				
+			
+				
+				<div id='pc_scoresTile' style="display:none;">
+				</div>
+				
+				<div id='pc_aboutscreen' style="display:none;">
+					<center>
+					GRITS : 
+					PvP Gaming with HTML5<br><br>
+					GRITS is a cross-functional effort to create a boilerplate codebase to provide to game developers that are looking to get started using Google's technology stack. <br><br>
+					See the source code : <a href='http://code.google.com/p/gritsgame/' target="_blank">HERE</a><br><br><br>
+					<a href="#" onclick="playSoundInstance('./sound/menu_select.ogg');disablePopup()" onmouseover="playSoundInstance('./sound/menu_bump.ogg')">RETURN</a>
+					</center>
+				</div>
+		</div>
+	</div>
+	<div id='backgroundPopup'></div>
+	
+	<div id='social_etc' style="position: absolute;top:0em;right:0em;width:149px;height:149px;">
+		<div id='lolwut'><a href="#" onclick="goto_aboutScreen()"><img src="../img/ribbon.png"></a></div>
+		<div id='social' style="position: absolute;top:0em;right:-6em;width:149px;height:149px;">
+			<div class="g-plus" data-action="share" data-annotation="none" data-height="15" data-href="http://gritsgame.appspot.com"></div>
+		</div>
+
+	</div>
+	
+
+	
+	<script type="text/javascript" src="./scripts/pregame/impress.js"></script>
+	<script type="text/javascript" src="./scripts/pregame/menus.js"></script>
+	<script type="text/javascript" src="./scripts/pregame/blockingpopup.js"></script>
+	
+	<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+  </body>
+</html>

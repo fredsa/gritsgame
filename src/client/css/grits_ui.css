@@ -1,0 +1,639 @@
+/*Generated via mege tool*/
+
+
+.winner{
+	background-position:-760px -1272px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 166px;
+	height: 36px;
+}
+
+.shotgun{
+	background-position:-1956px -160px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 88px;
+	height: 130px;
+}
+
+.bracket_left{
+	background-position:-824px -746px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 44px;
+	height: 324px;
+	position: absolute;
+	top: 80px;
+	left: -22px;
+	overflow: auto;
+	display: none;
+}
+
+.back_btn:hover{
+	background-position:-764px -1160px;
+}
+
+.back_btn{
+	background-position:-500px -1178px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+
+.pause_title{
+	background-position:-1026px -1208px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 220px;
+	height: 46px;
+}
+
+.store_title{
+	background-position:-1026px -1160px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 222px;
+	height: 46px;
+}
+
+.store_btn:hover{
+	background-position:-1694px -2px;
+}
+
+.store_btn{
+	background-position:-1694px -74px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+
+.rocket_launcher{
+	background-position:-1956px -2px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 88px;
+	height: 156px;
+	position: absolute;
+	top: 63px;
+	overflow: auto;
+	left: 84px;
+}
+
+.bracket_right{
+	background-position:-774px -796px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 44px;
+	height: 324px;
+	position: absolute;
+	top: 80px;
+	left: 380px;
+	overflow: auto;
+	display: none;
+}
+
+.robot_base{
+	background-position:-384px -1250px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 196px;
+	height: 196px;
+	position: absolute;
+	top: 72px;
+	overflow: auto;
+	left: 92px;
+}
+
+.icon_shield_offensive_btn:hover{
+	background-position:-1372px -1076px;
+}
+
+.icon_shield_offensive_btn{
+	background-position:-774px -746px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.icon_shield_defensive_btn:hover{
+	background-position:-1372px -926px;
+}
+
+.icon_shield_defensive_btn{
+	background-position:-1322px -976px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.railgun{
+	background-position:-1948px -806px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 78px;
+	height: 186px;
+}
+
+.slider_horizontal_end_left{
+	background-position:-2028px -904px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+.buy_btn:hover{
+	background-position:-1322px -770px;
+}
+
+.buy_btn{
+	background-position:-1322px -798px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 104px;
+	height: 26px;
+}
+
+.slider_horizontal_end_right{
+	background-position:-2028px -886px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+.robot{
+	background-position:-1434px -578px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 512px;
+	height: 548px;
+	position: absolute;
+	top: 140px;
+	left: 200px;
+}
+
+.icon_chaingun_btn:hover{
+	background-position:-1640px -510px;
+}
+
+.icon_chaingun_btn{
+	background-position:-1948px -994px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.pause_btn:hover{
+	background-position:-820px -1072px;
+}
+
+.pause_btn{
+	background-position:-820px -1106px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	opacity: 0.7;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+.respawn_title{
+	background-position:-762px -1232px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 242px;
+	height: 38px;
+}
+
+.background_list{
+	background-position:-2px -698px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 508px;
+	height: 400px;
+}
+
+.icon_rocket_launcher_btn:hover{
+	background-position:-1372px -876px;
+}
+
+.icon_rocket_launcher_btn{
+	background-position:-1322px -926px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.icon_line_bottom{
+	background-position:-1610px -510px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 28px;
+	height: 56px;
+	position: absolute;
+	top: 250px;
+	overflow: auto;
+	left: 190px;
+}
+
+.icon_machinegun_btn:hover{
+	background-position:-1998px -1094px;
+}
+
+.icon_machinegun_btn{
+	background-position:-1322px -826px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.icon_railgun_btn:hover{
+	background-position:-1372px -826px;
+}
+
+.icon_railgun_btn{
+	background-position:-1322px -876px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.close_x_btn:hover{
+	background-position:-854px -1072px;
+}
+
+.close_x_btn{
+	background-position:-854px -1096px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 22px;
+	height: 22px;
+}
+
+.defensive_shield{
+	background-position:-1500px -510px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 108px;
+	height: 60px;
+	position: absolute;
+	top: 210px;
+	overflow: auto;
+	left: 140px;
+}
+
+.nub_horizontal_btn:hover{
+	background-position:-1640px -560px;
+}
+
+.nub_horizontal_btn{
+	background-position:-1662px -560px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 16px;
+}
+
+.leave_game_btn:hover{
+	background-position:-512px -890px;
+}
+
+.leave_game_btn{
+	background-position:-512px -962px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+
+.offensive_shield{
+	background-position:-1322px -700px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 110px;
+	height: 68px;
+}
+
+.icon_thruster_btn:hover{
+	background-position:-1372px -1026px;
+}
+
+.icon_thruster_btn{
+	background-position:-1322px -1076px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.game_over_title{
+	background-position:-512px -698px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 370px;
+	height: 46px;
+}
+
+.background_tile_a{
+	background-position:-1434px -510px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+}
+
+.quick_game_btn:hover{
+	background-position:-1694px -290px;
+}
+
+.quick_game_btn{
+	background-position:-1694px -362px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+
+.team_light{
+	background-position:-1006px -1256px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 200px;
+	height: 26px;
+}
+
+.nub_vertical_btn:hover{
+	background-position:-2028px -806px;
+}
+
+.nub_vertical_btn{
+	background-position:-2028px -828px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 20px;
+}
+
+.portrait_boarder{
+	background-position:-1268px -1126px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 156px;
+	height: 156px;
+	position: absolute;
+	top: 36px;
+	left: 36px;
+}
+
+.background_small{
+	background-position:-884px -700px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 436px;
+	height: 412px;
+}
+
+.logo{
+	background-position:-892px -510px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 540px;
+	height: 188px;
+	position: absolute;
+	top: 0px;
+	left: 200px;
+}
+
+.icon_line_left{
+	background-position:-384px -1130px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 116px;
+	height: 28px;
+	position: absolute;
+	top: 190px;
+	overflow: auto;
+	left: 40px;
+}
+
+.slider_vertical_end_top{
+	background-position:-2028px -868px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+.return_btn:hover{
+	background-position:-1694px -146px;
+}
+
+.return_btn{
+	background-position:-1694px -218px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+
+.grenade_launcher{
+	background-position:-1956px -292px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 86px;
+	height: 182px;
+}
+
+.slider_horizontal_middle{
+	background-position:-1684px -560px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 8px;
+	height: 16px;
+}
+
+.login_btn:hover{
+	background-position:-512px -746px;
+}
+
+.login_btn{
+	background-position:-512px -818px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+
+.icon_grenade_launcher_btn:hover{
+	background-position:-1998px -994px;
+}
+
+.icon_grenade_launcher_btn{
+	background-position:-1948px -1044px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.icon_landmine_btn:hover{
+	background-position:-1998px -1044px;
+}
+
+.icon_landmine_btn{
+	background-position:-1948px -1094px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.background_main{
+	background-position:-2px -2px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 888px;
+	height: 694px;
+}
+
+.icon_shotgun_btn:hover{
+	background-position:-1372px -976px;
+}
+
+.icon_shotgun_btn{
+	background-position:-1322px -1026px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+}
+
+.slider_vertical_middle{
+	background-position:-1610px -568px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 8px;
+}
+
+.background_store{
+	background-position:-892px -2px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 800px;
+	height: 506px;
+}
+
+.icon_line_right{
+	background-position:-384px -1100px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 116px;
+	height: 28px;
+	position: absolute;
+	top: 190px;
+	overflow: auto;
+	left: 250px;
+}
+
+.team_dark{
+	background-position:-582px -1250px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 176px;
+	height: 26px;
+}
+
+.slider_vertical_end_bottom{
+	background-position:-2028px -850px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+
+.close_btn:hover{
+	background-position:-512px -1034px;
+}
+
+.close_btn{
+	background-position:-502px -1106px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+
+.game_over_list{
+	background-position:-2px -1100px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 380px;
+	height: 408px;
+}
+
+.bracket_bottom{
+	background-position:-878px -1114px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 388px;
+	height: 44px;
+	position: absolute;
+	top: 310px;
+	left: 0px;
+	overflow: auto;
+	display: none;
+}
+
+.chaingun{
+	background-position:-1948px -638px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 92px;
+	height: 166px;
+	position: absolute;
+	top: 72px;
+	overflow: auto;
+	left: 232px;
+}
+
+.thuster{
+	background-position:-384px -1160px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 114px;
+	height: 68px;
+}
+
+.machinegun{
+	background-position:-1956px -476px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 82px;
+	height: 160px;
+}
+
+.logout_btn:hover{
+	background-position:-1694px -434px;
+}
+
+.logout_btn{
+	background-position:-1694px -506px;
+	background-image: url(../img/grits_interface.png);
+	background-repeat: no-repeat;
+	width: 260px;
+	height: 70px;
+}
+

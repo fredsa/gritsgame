@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Grits WASD</string>
+    <string name="up">W\n(UP)</string>
+    <string name="left">A\n(LEFT)</string>
+    <string name="right">D\n(RIGHT)</string>
+    <string name="down">S\n(DOWN)</string>
+    <string name="grits">grits</string>
+    <string name="reconnect">(re)connect</string>
+    
+    <color name="gray">#777777</color>
+</resources>
