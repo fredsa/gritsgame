@@ -125,7 +125,7 @@ class FrontendHandler(webapp2.RequestHandler):
       # TODO instead get a suitable displayName from https://www.googleapis.com/auth/userinfo.profile
       return user.user_id(), user.nickname() # '0', 'example@example.com' in dev_appserver
     except oauth.OAuthRequestError:
-      raise Exception('OAuth2 credentials -or- a valid anonymous userID must be provided')
+      raise Exception("""OAuth2 credentials -or- a valid 'bot*...' userID must be provided""")
 
 
 # frontend handler
@@ -136,9 +136,6 @@ class LoginHandler(FrontendHandler):
     self.get()
 
   def get(self):
-     if _IS_DEVELOPMENT:
-       c = fromjson(open('build/keys-localhost.json').read())
-       db_api.setConfig(self.request.host_url, c['client_id'], c['client_secret'])
      config = db_api.getConfig(self.request.host_url)
      if not config:
        self.request_init()
@@ -164,15 +161,20 @@ class LoginHandler(FrontendHandler):
        if users.is_current_user_admin():
          client_id = self.request.get('client_id')
          client_secret = self.request.get('client_secret')
-         if client_id and client_secret:
-           db_api.setConfig(self.request.host_url, client_id, client_secret)
+         api_key = self.request.get('api_key')
+         if client_id and client_secret and api_key:
+           db_api.setConfig(self.request.host_url, client_id, client_secret, api_key)
            body = 'Thank you! You may now <a href="javascript:window.location.reload();">reload</a> this page.'
          else:
            body = """Please enter the following information from the
                      <a href="https://developers.google.com/console" target="_blank">Developer Console<a> <b>%s</b> project:<br><br>
                      <form method="post">
+                       <h3>Client ID for web applications<h3>
                        client_id:<input name="client_id"><br>
                        client_secret:<input name="client_secret"><br>
+
+                       <h3>Simple API Access<h3>
+                       api_key:<input name="api_key"><br>
                        <input type="submit">
                      </form>""" % self.request.host_url
        else:
@@ -256,13 +258,11 @@ class GritsService(FrontendHandler):
     logging.info('%s -> %s -> %s' % (repr(payload), url, resp.content))
 	
   def getFriends(self, userID):
+        config = db_api.getConfig(self.request.host_url)
+        assert config.api_key
 	token = self.request.get('accessToken')
-	if _IS_DEVELOPMENT:
-		client_secret= "AIzaSyCFN9WO1cF4tHNvZXIJ0DYfZdkXLmEH_xs"
-	else:
-		client_secret= "AIzaSyBUQA_UKmZEfgJYNLY4K5-SjpVlKRjI6HM"
 	reqUri = 'https://www.googleapis.com/plus/v1games/people/me/people/recommended';
-	reqUri += '?key=' + client_secret;
+	reqUri += '?key=' + config.api_key;
 	reqUri += '&access_token=' + token;
 	result = fetchjson(reqUri, None)
 	self.response.write(tojson(result))
