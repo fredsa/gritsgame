@@ -650,6 +650,37 @@ public class WasdActivity extends Activity {
     Log.d(TAG, msg);
   }
 
+  private void updateDirections(float sensorX, float sensorY) {
+    if (sensorX > SENSOR_THRESHOLD) {
+      left = true;
+    } else if (sensorX < SENSOR_THRESHOLD - SENSOR_STICKINESS) {
+      left = false;
+    }
+
+    if (sensorX < -SENSOR_THRESHOLD) {
+      right = true;
+    } else if (sensorX > -SENSOR_THRESHOLD + SENSOR_STICKINESS) {
+      right = false;
+    }
+
+    if (sensorY > SENSOR_THRESHOLD) {
+      down = true;
+    } else if (sensorY < SENSOR_THRESHOLD - SENSOR_STICKINESS) {
+      down = false;
+    }
+
+    if (sensorY < -SENSOR_THRESHOLD) {
+      up = true;
+    } else if (sensorY > -SENSOR_THRESHOLD + SENSOR_STICKINESS) {
+      up = false;
+    }
+
+    upView.setBackgroundColor(up ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
+    downView.setBackgroundColor(down ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
+    leftView.setBackgroundColor(left ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
+    rightView.setBackgroundColor(right ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
+  }
+
   /**
    * Class dedicated to listening for accelerometer events. The results are published to few boolean
    * fields in the parent class. We're lazy, so we also update the UI directional indicators here.
@@ -708,34 +739,7 @@ public class WasdActivity extends Activity {
 
       // Log.d(TAG, "rotation=" + display.getRotation() + "; x=" + sensorX + "; y=" + sensorY);
 
-      if (sensorX > SENSOR_THRESHOLD) {
-        left = true;
-      } else if (sensorX < SENSOR_THRESHOLD - SENSOR_STICKINESS) {
-        left = false;
-      }
-
-      if (sensorX < -SENSOR_THRESHOLD) {
-        right = true;
-      } else if (sensorX > -SENSOR_THRESHOLD + SENSOR_STICKINESS) {
-        right = false;
-      }
-
-      if (sensorY > SENSOR_THRESHOLD) {
-        down = true;
-      } else if (sensorY < SENSOR_THRESHOLD - SENSOR_STICKINESS) {
-        down = false;
-      }
-
-      if (sensorY < -SENSOR_THRESHOLD) {
-        up = true;
-      } else if (sensorY > -SENSOR_THRESHOLD + SENSOR_STICKINESS) {
-        up = false;
-      }
-
-      upView.setBackgroundColor(up ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
-      downView.setBackgroundColor(down ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
-      leftView.setBackgroundColor(left ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
-      rightView.setBackgroundColor(right ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
+      updateDirections(sensorX, sensorY);
     }
 
   }
