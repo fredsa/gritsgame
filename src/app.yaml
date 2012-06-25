@@ -1,0 +1,65 @@
+application: gritsgame
+version: dev
+runtime: python27
+threadsafe: true
+api_version: 1
+
+inbound_services:
+- warmup
+
+handlers:
+- url: /
+  static_files: client/index.html
+  upload: client/index.html
+
+- url: /favicon\.ico
+  static_files: client/favicon.ico
+  upload: client/favicon\.ico
+
+- url: /(logup.html)
+  static_files: client/\1
+  upload: client/logup.html
+
+- url: /img
+  static_dir: client/img
+
+- url: /scripts
+  static_dir: client/scripts
+
+- url: /css/(.*\.ttf)
+  static_files: client/css/\1
+  upload: client/css/.*\.ttf
+  mime_type: font/ttf
+
+- url: /sound
+  static_dir: client/sound
+  
+- url: /(.*\.(ogg|oga))
+  mime_type: audio/ogg
+  static_files: static/\1
+  upload: static/(.*\.(ogg|oga))
+  
+  
+# Site ownership verification.
+- url: /google074e606926b6bfd2.html
+  static_files: google074e606926b6bfd2.html
+  upload: google074e606926b6bfd2.html
+  
+- url: /css
+  static_dir: client/css
+
+# We explicitly exclude *.json files here because we want to access these as
+# appliation files on the server and static files are not available as such
+# https://developers.google.com/appengine/docs/python/config/appconfig#Static_File_Handlers
+- url: /(shared/.*\.js)
+  static_files: \1
+  upload: (shared/.*\.js$)
+
+# in order to make application files files also available over HTTP, we must
+# setup a handler to serve them
+# https://developers.google.com/appengine/docs/python/config/appconfig#Static_File_Handlers
+- url: /(shared/.*\.json)
+  script: client.main.app
+
+- url: /.*
+  script: client.main.app

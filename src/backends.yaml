@@ -1,0 +1,8 @@
+backends:
+
+# handle player matchmaking services
+- name: matcher
+  class: B1
+  instances: 1
+  options: dynamic, public, dynamic
+  start: client/ah_start_matcher.py
