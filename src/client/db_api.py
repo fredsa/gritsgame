@@ -22,9 +22,15 @@ import os
 from client import shared
 
 
+_IS_DEVELOPMENT = os.environ['SERVER_SOFTWARE'].startswith('Development/')
+
+
 class Config(ndb.Model):
+  # Client ID for web applications
   client_id = ndb.StringProperty(indexed=False)
   client_secret = ndb.StringProperty(indexed=False)
+  # Simple API Access
+  api_key = ndb.StringProperty(indexed=False)
 
 
 class User(ndb.Model):
@@ -37,11 +43,14 @@ class User(ndb.Model):
 
 
 def getConfig(origin):
+  if _IS_DEVELOPMENT:
+    c = json.loads(open('build/keys-localhost.json').read())
+    setConfig(self.request.host_url, c['client_id'], c['client_secret'], c['api_key'])
   return Config.get_by_id(str(origin))
 
 
-def setConfig(origin, client_id, client_secret):
-  config = Config(id=str(origin), client_id=client_id, client_secret=client_secret)
+def setConfig(origin, client_id, client_secret, api_key):
+  config = Config(id=str(origin), client_id=client_id, client_secret=client_secret, api_key)
   config.put()
 
 

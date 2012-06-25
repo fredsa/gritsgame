@@ -32,7 +32,7 @@ limitations under the License.
         if (document.body) {
           var err = document.createElement('div');
           msg = msg.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          err.innerHTML = '<div style="position: absolute; left: 50%; width: 80em; margin-left: -40em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif; white-space: pre; z-index: 1000;">' + msg + '</div>';
+          err.innerHTML = '<div style="position: absolute; left: 50%; width: 80em; margin-left: -40em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif; white-space: pre;">' + msg + '</div>';
           document.body.appendChild(err);
         } else {
           alert("Grits says, \"Guess what just happened?\"\n"
@@ -513,7 +513,10 @@ limitations under the License.
 	<!-- QR CODE FOR WASD -->		
 	<div id='pc_qrTile' style="display:none;">
 		<a href='https://play.google.com/store/apps/details?id=grits.wasd' target='_blank'>
-						<!-- http://chart.apis.google.com/chart?cht=qr&chs=230x230&chld=L&choe=UTF-8&chl=market%3A%2F%2Fdetails%3Fid%3Dgrits.wasd -->
+						<!--
+							https://play.google.com/store/apps/details?id=grits.wasd
+							http://chart.apis.google.com/chart?cht=qr&chs=230x230&chld=L&choe=UTF-8&chl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dgrits.wasd
+						-->
 						<img src='./img/grits.wasd.png'>
 					</a>
 	</div>
