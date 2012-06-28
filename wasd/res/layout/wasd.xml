@@ -5,7 +5,7 @@
 
     <Button
         android:id="@+id/button_up"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="80dp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
@@ -15,7 +15,7 @@
 
     <Button
         android:id="@+id/button_left"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="80dp"
         android:textStyle="bold"
         android:layout_alignParentLeft="true"
@@ -25,7 +25,7 @@
 
     <Button
         android:id="@+id/button_right"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="80dp"
         android:textStyle="bold"
         android:layout_alignParentRight="true"
@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/button_down"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="80dp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"

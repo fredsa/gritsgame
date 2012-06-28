@@ -675,10 +675,10 @@ public class WasdActivity extends Activity {
       up = false;
     }
 
-    upView.setBackgroundColor(up ? Color.rgb(0, 255, 0) : Color.rgb(0, 80, 0));
-    downView.setBackgroundColor(down ? Color.rgb(0, 255, 0) : Color.rgb(0, 80, 0));
-    leftView.setBackgroundColor(left ? Color.rgb(0, 255, 0) : Color.rgb(0, 80, 0));
-    rightView.setBackgroundColor(right ? Color.rgb(0, 255,0) : Color.rgb(0, 80, 0));
+    upView.setBackgroundColor(up ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
+    downView.setBackgroundColor(down ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
+    leftView.setBackgroundColor(left ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
+    rightView.setBackgroundColor(right ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
   }
 
   /**

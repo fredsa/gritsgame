@@ -8,5 +8,5 @@
     <string name="grits">grits</string>
     <string name="reconnect">(re)connect</string>
     
-    <color name="gray">#777777</color>
+    <color name="gray">#999999</color>
 </resources>
