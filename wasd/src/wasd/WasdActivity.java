@@ -675,10 +675,10 @@ public class WasdActivity extends Activity {
       up = false;
     }
 
-    upView.setBackgroundColor(up ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
-    downView.setBackgroundColor(down ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
-    leftView.setBackgroundColor(left ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
-    rightView.setBackgroundColor(right ? Color.rgb(255, 100, 0) : Color.rgb(100, 50, 0));
+    upView.setBackgroundColor(up ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
+    downView.setBackgroundColor(down ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
+    leftView.setBackgroundColor(left ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
+    rightView.setBackgroundColor(right ? Color.rgb(0, 200, 0) : Color.rgb(0, 80, 0));
   }
 
   /**
@@ -738,7 +738,6 @@ public class WasdActivity extends Activity {
       }
 
       // Log.d(TAG, "rotation=" + display.getRotation() + "; x=" + sensorX + "; y=" + sensorY);
-
       updateDirections(sensorX, sensorY);
     }
 

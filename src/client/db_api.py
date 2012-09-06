@@ -45,12 +45,12 @@ class User(ndb.Model):
 def getConfig(origin):
   if _IS_DEVELOPMENT:
     c = json.loads(open('build/keys-localhost.json').read())
-    setConfig(self.request.host_url, c['client_id'], c['client_secret'], c['api_key'])
+    setConfig(origin, c['client_id'], c['client_secret'], c['api_key'])
   return Config.get_by_id(str(origin))
 
 
 def setConfig(origin, client_id, client_secret, api_key):
-  config = Config(id=str(origin), client_id=client_id, client_secret=client_secret, api_key)
+  config = Config(id=str(origin), client_id=client_id, client_secret=client_secret, api_key=api_key)
   config.put()
 
 

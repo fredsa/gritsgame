@@ -5,44 +5,56 @@
 
     <Button
         android:id="@+id/button_up"
-        android:layout_width="80dp"
+        android:layout_width="150dp"
         android:layout_height="80dp"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/grits_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/up" />
+        android:layout_marginBottom="10dp"
+        android:text="@string/up"
+        android:textScaleX="1.5"
+        android:textSize="23sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button_left"
-        android:layout_width="80dp"
+        android:layout_width="150dp"
         android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:text="@string/left" />
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/grits_logo"
+        android:text="@string/left"
+        android:textScaleX="1.5"
+        android:textSize="23sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button_right"
-        android:layout_width="80dp"
+        android:layout_width="150dp"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:text="@string/right" />
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/grits_logo"
+        android:text="@string/right"
+        android:textScaleX="1.5"
+        android:textSize="23sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button_down"
-        android:layout_width="80dp"
+        android:layout_width="150dp"
         android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/grits_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/down" />
+        android:layout_marginTop="10dp"
+        android:text="@string/down"
+        android:textScaleX="1.5"
+        android:textSize="23sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/grits_logo"
         android:layout_width="250sp"
-        android:layout_height="wrap_content"
+        android:layout_height="83sp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/grits"
@@ -56,7 +68,8 @@
         android:layout_alignParentTop="true"
         android:background="@color/gray"
         android:padding="10dp"
-        android:text="@string/reconnect" />
+        android:text="@string/reconnect"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/account_button"
@@ -66,6 +79,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/gray"
         android:padding="10dp"
-        android:text="username@gmail.com" />
+        android:text="username@gmail.com"
+        android:textStyle="bold" />
 
 </RelativeLayout>
