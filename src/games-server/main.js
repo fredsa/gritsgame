@@ -13,12 +13,20 @@ See the License for the specific language governing permissions and
 #limitations under the License.*/
 
 var express = require('express');
-var app_game = express.createServer();
-var app_controller = express.createServer()
+
+var app_game = express();
+var app_controller = express();
+
+var http_app_game = require('http');
+var http_app_controller = require('http');
+
+var server_app_game = http_app_game.createServer(app_game);
+var server_app_controller = http_app_controller.createServer(app_controller);
+
 app_controller.configure(function(){
   app_controller.use(express.bodyParser());
 });
-var io = require('socket.io').listen(app_game);
+var io = require('socket.io').listen(server_app_game);
 var fs = require('fs');
 var loop = require('./loop');
 var packer = require('./packer');
@@ -622,7 +630,7 @@ if (process.env.NODE_ENV == 'production') {
   MATCHER_PORT = 9100;
 }
 
-app_controller.listen(CONTROLLER_PORT);
-app_game.listen(GAME_PORT);
+server_app_controller.listen(CONTROLLER_PORT);
+server_app_game.listen(GAME_PORT);
 appeng.connect(MATCHER_HOST, MATCHER_PORT, CONTROLLER_PORT, SERVERID);
 
