@@ -13,20 +13,12 @@ See the License for the specific language governing permissions and
 #limitations under the License.*/
 
 var express = require('express');
-
-var app_game = express();
-var app_controller = express();
-
-var http_app_game = require('http');
-var http_app_controller = require('http');
-
-var server_app_game = http_app_game.createServer(app_game);
-var server_app_controller = http_app_controller.createServer(app_controller);
-
+var app_game = express.createServer();
+var app_controller = express.createServer()
 app_controller.configure(function(){
   app_controller.use(express.bodyParser());
 });
-var io = require('socket.io').listen(server_app_game);
+var io = require('socket.io').listen(app_game);
 var fs = require('fs');
 var loop = require('./loop');
 var packer = require('./packer');
@@ -280,6 +272,7 @@ function runGame(game_id, idle_time) {
     var received_hello_state = 'initial';
     var handlers = {
       hello: function(msg) {
+        if (!instinfo) return;
         console.log('got hello', msg);
 
         // dirty cheater
@@ -370,6 +363,7 @@ function runGame(game_id, idle_time) {
         });
       },
       ping: function(msg) {
+        if (!instinfo) return;
         if (received_hello_state != 'ready') {
           console.log('received ping but received_hello_state = ' + received_hello_state);
           socket.disconnect();
@@ -382,6 +376,7 @@ function runGame(game_id, idle_time) {
         flush();
       },
       respawn: function(msg) {
+        if (!instinfo) return;
         if (received_hello_state != 'ready') {
           console.log('received respawn but received_hello_state = ' + received_hello_state);
           socket.disconnect();
@@ -394,6 +389,7 @@ function runGame(game_id, idle_time) {
         }
       },
       DEFAULT: function(msg, name) {
+        if (!instinfo) return;
         if (received_hello_state != 'ready') {
           console.log('received name=' + name + ' with  msg=' + msg +' but received_hello_state = ' + received_hello_state);
           socket.disconnect();
@@ -453,6 +449,12 @@ function runGame(game_id, idle_time) {
         }
       }));
       broadcaster.q_spawn({id:ent.name, type:ent.type, x:ent.pos.x, y:ent.pos.y, settings:ent.spawnInfo });
+    }
+  }
+  game.gGameEngine.onUnspawned = function(ent) {
+    console.log('unspawn', ent)
+    if (isServerEntityName(ent.name)) {
+      broadcaster.q_unspawn({id:ent.name})
     }
   }
   game.gGameEngine.setup(false);
@@ -630,7 +632,7 @@ if (process.env.NODE_ENV == 'production') {
   MATCHER_PORT = 9100;
 }
 
-server_app_controller.listen(CONTROLLER_PORT);
-server_app_game.listen(GAME_PORT);
+app_controller.listen(CONTROLLER_PORT);
+app_game.listen(GAME_PORT);
 appeng.connect(MATCHER_HOST, MATCHER_PORT, CONTROLLER_PORT, SERVERID);
 
