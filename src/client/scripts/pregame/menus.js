@@ -102,7 +102,7 @@ var goto_ingameoptions = function()
 	show_qrTile();
 }
 
-var goto_findGame = function()
+var goto_findGame = function(retry)
 {
 	document.getElementById('pc_gamesearch').style.display = "block";
 	centerPopup();loadPopup();
@@ -128,6 +128,10 @@ var goto_findGame = function()
 		}
 		if(respDat.result == 'wait') {
                         if (respDat.players_needed_for_next_game == -1) {
+				if (retry) {
+					goto_findGame(false);
+					return;
+				}
 				alert('Sorry, all existing games are currently full. Please wait a few moments, and join again.');
 			} else {
 				alert('Sorry, we need a total of ' + respDat.players_needed_for_next_game + ' players before we can start the next game.');

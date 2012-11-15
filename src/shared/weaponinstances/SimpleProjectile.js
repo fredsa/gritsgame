@@ -27,7 +27,7 @@ SimpleProjectileClass = WeaponInstanceClass.extend({
     this.dir = {x:settings.dir.x, y:settings.dir.y};
 	this.lifetime = 2;	//in seconds
     var spd = 800;
-	this.rotAngle = this.owningPlayer.faceAngleRadians;    
+	this.rotAngle = settings.faceAngleRadians;    
 	if(settings)
 	{
 		if(settings.speed)
@@ -53,8 +53,8 @@ SimpleProjectileClass = WeaponInstanceClass.extend({
       halfWidth: 5 * 0.5,
       damping: 0,
       angle: 0,
-      categories: ['projectile', this.owningPlayer.team == 0 ? 'team0' : 'team1'],
-      collidesWith: ['mapobject', this.owningPlayer.team == 0 ? 'team1' : 'team0'],
+      categories: ['projectile', settings.team == 0 ? 'team0' : 'team1'],
+      collidesWith: ['mapobject', settings.team == 0 ? 'team1' : 'team0'],
       userData: {
         "id": "wpnSimpleProjectile" + guid,
         "ent": this

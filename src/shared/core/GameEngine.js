@@ -214,6 +214,7 @@ GameEngineClass = Class.extend({
   },
 
   onSpawned: function () {},
+  onUnspawned: function () {},
 
   spawnEntity: function (typename, x, y, settings) {
     var entityClass = Factory.nameClassMap[typename];
@@ -263,6 +264,9 @@ GameEngineClass = Class.extend({
 
   removeEntity: function (ent) {
     if (!ent) return;
+
+    this.onUnspawned(ent);
+
     // Remove this entity from the named entities
     if (ent.name) {
       delete this.namedEntities[ent.name];

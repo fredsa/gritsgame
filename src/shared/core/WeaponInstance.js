@@ -18,8 +18,8 @@ WeaponInstanceClass = EntityClass.extend({
   init: function (x, y, settings) {
 	this.parent(x, y, settings);
   
-  	this.owningPlayer = gGameEngine.namedEntities[settings.owner];
-    if (settings.owner.powerUpTime>0) {
+        this.owningPlayer = gGameEngine.namedEntities[settings.owner];
+    if (this.owningPlayer && this.owningPlayer.powerUpTime>0) {
       this.damageMultiplier *= 4.0;
     }
   },

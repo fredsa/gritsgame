@@ -42,7 +42,7 @@ SpawnerClass = EntityClass.extend({
 	 {
 		if(this.lastSpawned._killed == true )
 		{
-			this.nextSpawnTime = gGameEngine.getTime() + 60;
+			this.nextSpawnTime = gGameEngine.getTime() + 20;
 			this.lastSpawned = null;
 		}
 	 }

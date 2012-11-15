@@ -18,12 +18,11 @@ LandmineDiskClass = WeaponInstanceClass.extend({
   team:null,
   init: function (x, y, settings) {
 	this.parent(x, y, settings);
-	var owningPlayer = gGameEngine.namedEntities[settings.owner];
 	var startPos = settings.pos;
 	
     
     this.lifetime = 100;
-    this.team = owningPlayer.team;
+    this.team = settings.team;
 
     //DETERMINE WHAT OUR ROTATION ANGLE IS
     rotAngle = 0;
@@ -38,8 +37,8 @@ LandmineDiskClass = WeaponInstanceClass.extend({
       halfWidth: 19 * 0.5,
       damping: 0,
       angle: 0,
-      categories: ['projectile', owningPlayer.team == 0 ? 'team0' : 'team1'],
-      collidesWith: [owningPlayer.team == 0 ? 'team1' : 'team0'],
+      categories: ['projectile', this.team == 0 ? 'team0' : 'team1'],
+      collidesWith: [this.team == 0 ? 'team1' : 'team0'],
       userData: {
         "id": "wpnLandmineDisk" + guid,
         "ent": this
@@ -77,9 +76,7 @@ LandmineDiskClass = WeaponInstanceClass.extend({
 
     //spawn impact visual
 	if (!IS_SERVER) {
-		var pPos = this.physBody.GetPosition();
-		var ent = gGameEngine.spawnEntity("LandmineExplode", pPos.x, pPos.y, null);
-		ent.onInit(pPos);
+                this.makeBang();
 	}
 	else
 	{

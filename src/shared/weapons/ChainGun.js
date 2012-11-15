@@ -47,6 +47,8 @@ ChainGunClass = WeaponClass.extend({
     var ent = gGameEngine.spawnEntity("SimpleProjectile", point1.x - gMap.viewRect.x, point1.y - gMap.viewRect.y, {
 		name:owningPlayer.name+"_CGB_"+gGameEngine.nextSpawnId(),
 		owner:owningPlayer.name,
+                faceAngleRadians:owningPlayer.faceAngleRadians,
+                team:owningPlayer.team,
 		pos:point1,
 		dir:dir,
 		lifetimeInSeconds:1.5,

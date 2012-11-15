@@ -39,7 +39,7 @@ LandmineClass = WeaponClass.extend({
 
     var ent = gGameEngine.spawnEntity("LandmineDisk", point1.x - gMap.viewRect.x, point1.y - gMap.viewRect.y,{
 		name:owningPlayer.name+"_LMC_"+gGameEngine.nextSpawnId(),
-		owner:owningPlayer.name,
+		team:owningPlayer.team,
 		pos:point1
 		});
 
