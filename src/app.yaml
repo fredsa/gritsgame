@@ -63,3 +63,46 @@ handlers:
 
 - url: /.*
   script: client.main.app
+
+
+# See https://developers.google.com/appengine/docs/python/config/appconfig#pagespeed
+#pagespeed:
+#  enabled_rewriters:
+#
+#  #HTML rewriters
+#  - ProxyCss # default
+#  - ProxyImages # default
+#  - ProxyJs # default
+#  - ConvertMetaTags # default
+#  - InlineCss # default
+#  - InlineJs
+#  - InlineImages
+#  - InlinePreviewImages # default
+#  - CollapseWhitespace
+#  - CombineHeads
+#  - ElideAttributes
+#  - RemoveComments
+#  - RemoveQuotes
+#  - LeftTrimUrls
+#
+#  #CSS rewriters
+#  - CombineCss # default
+#  - MoveCssToHead # default
+#  - MinifyCss
+#
+#  #Image rewriters
+#  - WebpOptimization # default
+#  - ImageConvertToJpeg # default
+#  - ImageRecompressJpeg # default
+#  - ImageProgressiveJpeg # default
+#  - ImageRecompressPng # default
+#  - ImageStripMetadata # default
+#  - ImageStripColorProfile # default
+#  - ImageResize # default
+#  - LazyloadImages # default
+#  - ImageAddDimensions
+#
+#  #JavaScript rewriters
+#  - CombineJs # default
+#  - JsOptimize # default
+#  - DeferJs
