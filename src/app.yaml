@@ -42,8 +42,8 @@ handlers:
   
 # Site ownership verification.
 - url: /google074e606926b6bfd2.html
-  static_files: google074e606926b6bfd2.html
-  upload: google074e606926b6bfd2.html
+  static_files: client/google074e606926b6bfd2.html
+  upload: client/google074e606926b6bfd2.html
   
 - url: /css
   static_dir: client/css
