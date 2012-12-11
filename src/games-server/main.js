@@ -10,15 +10,17 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-#limitations under the License.*/
+limitations under the License.*/
 
 var express = require('express');
-var app_game = express.createServer();
+var http = require('http');
+var app = express();
+var game_server = http.createServer(app);
 var app_controller = express.createServer()
 app_controller.configure(function(){
   app_controller.use(express.bodyParser());
 });
-var io = require('socket.io').listen(app_game);
+var io = require('socket.io').listen(game_server);
 var fs = require('fs');
 var loop = require('./loop');
 var packer = require('./packer');
@@ -76,7 +78,7 @@ player_games = {};
 })();
 
 var protoizejs = 'protoize = ' + packer.gen(proto.c2s, proto.s2c);
-app_game.get('/protoize.js', function(req, res) {
+app.get('/protoize.js', function(req, res) {
   console.log(req.path, '<-', req.query)
   res.header("Content-Type", "text/javascript");
   res.send(protoizejs);
@@ -633,6 +635,6 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 app_controller.listen(CONTROLLER_PORT);
-app_game.listen(GAME_PORT);
+game_server.listen(GAME_PORT);
 appeng.connect(MATCHER_HOST, MATCHER_PORT, CONTROLLER_PORT, SERVERID);
 
