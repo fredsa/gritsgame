@@ -53,25 +53,19 @@ function get(path, cb) {
     donecb = true;
   }
   url = 'http://' + options.host + ':' + options.port + (options.path[0] == '/' ? '' : '/') + options.path;
-  // console.log(caller + ': GET ' + url);
   http.get(options, function(res) {
-    if (res.statusCode != 200) {
-      console.log(caller + ': GET ' + url + ' -> HTTP status code ' + res.statusCode);
-      callback(null);
-      return;
-    }
     res.on('data', function(chunk) {
       result += chunk;
     });
     res.on('end', function() {
-      console.log(caller + ': GET', url, '->', result);
+      console.log(caller + ': GET', url, '->', res.statusCode, result);
       callback(result);
     });
     res.on('close', function() {
       callback(null);
     });
   }).on('error', function(e) {
-    console.log(caller + ': GET ' + url + ' -> FAILED due to ' + e);
+    console.log(caller + ': GET', url, '-> FAILED due to ' + e);
     callback(null);
   })
 }
@@ -94,18 +88,12 @@ function post(path, contents, cb) {
     donecb = true;
   }
   url = 'http://' + options.host + ':' + options.port + (options.path[0] == '/' ? '' : '/') + options.path;
-  // console.log(caller + ': POST ' + url);
   var req = http.request(options, function(res) {
-    if (res.statusCode != 200) {
-      console.log(caller + ': POST ' + url + ' -> HTTP status code ' + res.statusCode + ':\n' + res);
-      callback(null);
-      return;
-    }
     res.on('data', function(chunk) {
       result += chunk;
     });
     res.on('end', function() {
-      console.log(caller + ':', contents, '->', url, '->', result);
+      console.log(caller + ': POST', contents, '->', url, '->', res.statusCode, result);
       callback(result);
     });
     res.on('close', function() {
@@ -113,7 +101,7 @@ function post(path, contents, cb) {
     });
   });
   req.on('error', function(e) {
-    console.log(caller + ': POST ' + url + ' -> FAILED due to ' + e);
+    console.log(caller + ': POST', url, '-> FAILED due to ' + e);
     callback(null);
   });
   req.write(contents);
