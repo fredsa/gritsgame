@@ -14,12 +14,17 @@ limitations under the License.*/
 
 var express = require('express');
 var http = require('http');
-var game_app = express();
+
+// controller
 var controller_app = express();
-var game_server = http.createServer(game_app);
-var app_controller = http.createServer(controller_app);
 controller_app.use(express.bodyParser());
+var controller_server = http.createServer(controller_app);
+
+// game server
+var game_app = express();
+var game_server = http.createServer(game_app);
 var io = require('socket.io').listen(game_server);
+
 var fs = require('fs');
 var loop = require('./loop');
 var packer = require('./packer');
@@ -647,7 +652,7 @@ if (process.env.NODE_ENV == 'production') {
   MATCHER_PORT = 9100;
 }
 
-app_controller.listen(CONTROLLER_PORT);
+controller_server.listen(CONTROLLER_PORT);
 game_server.listen(GAME_PORT);
 appeng.connect(MATCHER_HOST, MATCHER_PORT, CONTROLLER_PORT, SERVERID);
 
