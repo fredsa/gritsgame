@@ -145,12 +145,11 @@ function call(path, args, callback) {
 
 function checkConnectionSoon(controller_port, delay_s) {
   check_connection_delay_s = delay_s;
-  console.log('Will check connection again in', delay_s, 'seconds');
+  console.log('Will call', checkConnection.name, 'again in', delay_s, 'seconds');
   setTimeout(function() { checkConnection(controller_port); }, delay_s * 1000);
 }
 
 function checkConnection(controller_port) {
-  console.log(checkConnection.name + '()');
   var info = {
     controller_port: controller_port,
     serverid: SERVERID,
@@ -159,13 +158,11 @@ function checkConnection(controller_port) {
   uri = '/register-controller';
   call(uri, info, function(r) {
     if (!r || !r.success || r.backend != 'matcher') {
-      console.log(checkConnection.name, 'FAILED', r);
       // use exponential backoff + fuzz factor
       var delay_s = Math.min(check_connection_delay_s_max, check_connection_delay_s * 2 + Math.ceil(Math.random() * 5));
       checkConnectionSoon(controller_port, delay_s);
       return;
     }
-    console.log(checkConnection.name, 'SUCCESS', info, '->', uri, '->', r);
     checkConnectionSoon(controller_port, check_connection_delay_s_ok);
   });
 }
