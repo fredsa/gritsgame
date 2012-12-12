@@ -71,7 +71,7 @@ player_games = {};
     }
   }
   app_controller.get('/log', function(req, res) {
-    console.log(req.path, '<-', req.query)
+    log_request(req, res);
     res.header("Content-Type", "text/plain");
     res.send(recent_logs.join('\n'));
   });
@@ -85,6 +85,7 @@ app.get('/protoize.js', function(req, res) {
 });
 
 app_controller.get('/forever.log', function(req, res) {
+  log_request(req, res);
   fs.readFile('.forever/forever.log', function(err, data) {
     res.header("Content-Type", "text/plain")
     if (err) {
@@ -96,11 +97,13 @@ app_controller.get('/forever.log', function(req, res) {
 });
 
 app_controller.get('/disable-dedup', function(req, res) {
+  log_request(req, res);
   DEDUP = false;
   res.send("ok");
 });
 
 app_controller.get('/enable-dedup', function(req, res) {
+  log_request(req, res);
   DEDUP = true;
   res.send("ok");
 });
@@ -513,7 +516,7 @@ function runGame(game_id, idle_time) {
 }
 
 app_controller.get('/start-game', function(req, res) {
-  console.log(req.path, '<-', req.query)
+  log_request(req, res);
   if (!req.query.p || req.query.p != appeng.pairing_key) {
     res.send(JSON.stringify({
       success: false,
@@ -545,8 +548,18 @@ app_controller.get('/start-game', function(req, res) {
   crypto.randomBytes(IDSIZE, try_start);
 });
 
+function log_request(req, res) {
+  console.log(req.path, '<-', req.method);
+  for(var key in req.headers) {
+    console.log('- with request header', key + ': ' + req.headers[key]);
+  }
+  for(var key in req.body) {
+    console.log('- with request body', key + '=' + req.body[key]);
+  }
+}
+
 app_controller.post('/add-players', function(req, res) {
-  console.log(req.path, '<-', req.query)
+  log_request(req, res);
   if (!req.query.p || req.query.p != appeng.pairing_key) {
     res.send(JSON.stringify({
       success: false,
@@ -578,6 +591,7 @@ setInterval(function() {
 }, 1000);
 
 app_controller.get('/ping', function(req, res) {
+  log_request(req, res);
   console.log(req.path, '<-', req.query)
   res.header('Content-Type', 'application/json');
   res.send(JSON.stringify({
