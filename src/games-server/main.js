@@ -14,9 +14,9 @@ limitations under the License.*/
 
 var express = require('express');
 var http = require('http');
-var app = express();
+var game_app = express();
 var controller_app = express();
-var game_server = http.createServer(app);
+var game_server = http.createServer(game_app);
 var app_controller = http.createServer(controller_app);
 controller_app.use(express.bodyParser());
 var io = require('socket.io').listen(game_server);
@@ -77,7 +77,7 @@ player_games = {};
 })();
 
 var protoizejs = 'protoize = ' + packer.gen(proto.c2s, proto.s2c);
-app.get('/protoize.js', function(req, res) {
+game_app.get('/protoize.js', function(req, res) {
   console.log(req.path, '<-', req.query)
   res.header("Content-Type", "text/javascript");
   res.send(protoizejs);
