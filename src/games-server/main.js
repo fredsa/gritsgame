@@ -15,11 +15,10 @@ limitations under the License.*/
 var express = require('express');
 var http = require('http');
 var app = express();
+var controller_app = express();
 var game_server = http.createServer(app);
-var app_controller = express.createServer()
-app_controller.configure(function(){
-  app_controller.use(express.bodyParser());
-});
+var app_controller = http.createServer(controller_app);
+controller_app.use(express.bodyParser());
 var io = require('socket.io').listen(game_server);
 var fs = require('fs');
 var loop = require('./loop');
@@ -70,7 +69,7 @@ player_games = {};
       old_log.apply(this, arguments);
     }
   }
-  app_controller.get('/log', function(req, res) {
+  controller_app.get('/log', function(req, res) {
     log_request(req, res);
     res.header("Content-Type", "text/plain");
     res.send(recent_logs.join('\n'));
@@ -84,7 +83,7 @@ app.get('/protoize.js', function(req, res) {
   res.send(protoizejs);
 });
 
-app_controller.get('/forever.log', function(req, res) {
+controller_app.get('/forever.log', function(req, res) {
   log_request(req, res);
   fs.readFile('.forever/forever.log', function(err, data) {
     res.header("Content-Type", "text/plain")
@@ -96,13 +95,13 @@ app_controller.get('/forever.log', function(req, res) {
   })
 });
 
-app_controller.get('/disable-dedup', function(req, res) {
+controller_app.get('/disable-dedup', function(req, res) {
   log_request(req, res);
   DEDUP = false;
   res.send("ok");
 });
 
-app_controller.get('/enable-dedup', function(req, res) {
+controller_app.get('/enable-dedup', function(req, res) {
   log_request(req, res);
   DEDUP = true;
   res.send("ok");
@@ -515,7 +514,7 @@ function runGame(game_id, idle_time) {
   return getGameState();
 }
 
-app_controller.get('/start-game', function(req, res) {
+controller_app.get('/start-game', function(req, res) {
   log_request(req, res);
   if (!req.query.p || req.query.p != appeng.pairing_key) {
     res.send(JSON.stringify({
@@ -558,7 +557,7 @@ function log_request(req, res) {
   }
 }
 
-app_controller.post('/add-players', function(req, res) {
+controller_app.post('/add-players', function(req, res) {
   log_request(req, res);
   if (!req.query.p || req.query.p != appeng.pairing_key) {
     res.send(JSON.stringify({
@@ -590,7 +589,7 @@ setInterval(function() {
   stats.counts.bandwidth = second_bytes;
 }, 1000);
 
-app_controller.get('/ping', function(req, res) {
+controller_app.get('/ping', function(req, res) {
   log_request(req, res);
   console.log(req.path, '<-', req.query)
   res.header('Content-Type', 'application/json');
