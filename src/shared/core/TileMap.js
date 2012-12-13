@@ -60,9 +60,9 @@ var TileMapLoaderClass = Class.extend({
         };
         this.tileSets.push(ts);
       }
-	  
-	  //clm precache the bg
-	  checkWait(
+    
+		//Once all the images are loaded, kick off the pre-caching system
+		checkWait(
 					function()
 					{
 						return mapInst.imgLoadCount == mapInst.tileSets.length;
@@ -70,9 +70,9 @@ var TileMapLoaderClass = Class.extend({
 					function () 
 					{
 						mapInst.preDrawCache();
-					});
-	
-    }
+					}
+		);
+	}
 
     //load our object and collision layers
     for (var layerIdx = 0; layerIdx < this.currMapData.layers.length; layerIdx++) {
