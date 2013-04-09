@@ -4,5 +4,5 @@ backends:
 - name: matcher
   class: B1
   instances: 1
-  options: dynamic, public, dynamic
+  options: public, dynamic
   start: client/ah_start_matcher.py
