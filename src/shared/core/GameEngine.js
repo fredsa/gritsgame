@@ -391,7 +391,11 @@ GameEngineClass = Class.extend({
 	
 	if(toPlayer.health <=0)
 	{
-		this.notifyPlayers(toPlayer.displayName + " was killed by " + objOwner.displayName );
+    if(objOwner == null) // player who spawned the projectile has left the game
+        this.notifyPlayers(toPlayer.displayName + " was killed by " + objOwner.displayName );
+    else
+		  this.notifyPlayers(toPlayer.displayName + " was killed");
+
 		objOwner.numKills++;
 	}
   },
