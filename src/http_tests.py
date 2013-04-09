@@ -153,8 +153,8 @@ class HttpMatcherTest(unittest.TestCase):
     self.assertEquals(time, r.get(u'time'))
     self.assertEquals(self._serverid, r.get(u'serverid'))
     self.assertEquals(u'127.0.0.1:12345', r.get(u'controller_host'))
-    self.assertEquals(u'http://127.0.0.1:8081/%s' % name, r.get(u'gameURL'))
-    self.assertEquals(8081, r.get(u'port'))
+    self.assertEquals(u'http://127.0.0.1:9090/%s' % name, r.get(u'gameURL'))
+    self.assertEquals(9090, r.get(u'port'))
 
 
 if __name__ == '__main__':

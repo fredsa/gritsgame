@@ -647,7 +647,7 @@ if (process.env.NODE_ENV == 'production') {
   MATCHER_HOST = "matcher.gritsgame.appspot.com";
   MATCHER_PORT = 80;
 } else {
-  GAME_PORT = 8081;
+  GAME_PORT = 9090;
   MATCHER_HOST = "localhost";
   MATCHER_PORT = 9100;
 }

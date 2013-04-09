@@ -63,8 +63,8 @@ class MatchMaker:
   <game> =
     { serverid': ...,
       'name': 'mPdn',
-      'gameURL': 'http://127.0.0.1:8081/mPdn',
-      'port': 8081,
+      'gameURL': 'http://127.0.0.1:9090/mPdn',
+      'port': 9090,
       'controller_host': '127.0.0.1:12345',
       'game_state': {'players': {'324324382934982374823748923': '!1'}, 'min_players': 2, 'max_players': 8},
     }
