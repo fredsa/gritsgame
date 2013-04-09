@@ -2,4 +2,4 @@
 #
 set -uex
 
-curl 'http://localhost:9100/debug'
+curl 'http://localhost:8081/debug'

@@ -649,7 +649,7 @@ if (process.env.NODE_ENV == 'production') {
 } else {
   GAME_PORT = 9090;
   MATCHER_HOST = "localhost";
-  MATCHER_PORT = 9100;
+  MATCHER_PORT = 8081;
 }
 
 controller_server.listen(CONTROLLER_PORT);

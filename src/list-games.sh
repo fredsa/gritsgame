@@ -2,4 +2,4 @@
 #
 set -uex
 
-curl 'http://localhost:9100/list-games'
+curl 'http://localhost:8081/list-games'

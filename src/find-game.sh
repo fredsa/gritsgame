@@ -23,7 +23,7 @@ if [ "$backend" ]
 then
   # matcher backend
   set -x
-  curl --data-binary "{}" -H "Content-Type: application/json" "localhost:9100/find-game/$userID"
+  curl --data-binary "{}" -H "Content-Type: application/json" "localhost:8081/find-game/$userID"
 else
   # frontend
   set -x
