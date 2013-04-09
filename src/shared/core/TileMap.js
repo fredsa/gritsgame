@@ -259,8 +259,8 @@ var TileMapLoaderClass = Class.extend({
 		for(var q =0; q < this.preCacheCanvasArray.length; q++)
 		{
 			var r1 = this.preCacheCanvasArray[q];
-			var visible= this.intersectRect(	{top:r1.y,left:r1.x,bottom:r1.y+r1.h,right:r2.x+r2.w},
-												{top:r2.y,left:r2.x,bottom:r2.y+r2.h,right:r2.x+r2.w});
+			var visible= this.intersectRect(	{top:r1.y,left:r1.x,bottom:r1.y+r1.h,right:r1.x+r1.w},
+												                {top:r2.y,left:r2.x,bottom:r2.y+r2.h,right:r2.x+r2.w});
 			
 			if(visible)
 				gRenderEngine.context.drawImage(r1.preCacheCanvas, r1.x-this.viewRect.x,r1.y-this.viewRect.y);
