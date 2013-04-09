@@ -61,7 +61,7 @@ player_games = {};
 (function() {
   var recent_logs = [];
   var old_log = console.log;
-  var log_file = fs.createWriteStream("log.txt");
+  var log_file = fs.createWriteStream("../log.txt");
   var is_dev = (process.env.NODE_ENV != 'production');
   console.log = function () {
     var line = Array.prototype.slice.call(arguments).join(' ');
