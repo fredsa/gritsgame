@@ -382,22 +382,28 @@ GameEngineClass = Class.extend({
    //-----------------------------
   dealDmg: function(fromObj,toPlayer,amt)
   {
-	if(!IS_SERVER)return;
-	var objOwner = fromObj.owningPlayer;
-	if (toPlayer == null || toPlayer._killed) return false;
-	 
-	if(toPlayer.takeDamage)
-		toPlayer.takeDamage(amt);
-	
-	if(toPlayer.health <=0)
-	{
-    if(objOwner == null) // player who spawned the projectile has left the game
+  	if(!IS_SERVER)return;
+  	var objOwner = fromObj.owningPlayer;
+  	if (toPlayer == null || toPlayer._killed) return false;
+  	 
+  	if(toPlayer.takeDamage)
+  		toPlayer.takeDamage(amt);
+  	
+  	if(toPlayer.health <=0)
+  	{
+      if(objOwner == null) // player who spawned the projectile has left the game
+      {
+        this.notifyPlayers(toPlayer.displayName + " was killed");
+      }
+      else
+      {
+  		  
         this.notifyPlayers(toPlayer.displayName + " was killed by " + objOwner.displayName );
-    else
-		  this.notifyPlayers(toPlayer.displayName + " was killed");
+        objOwner.numKills++;
+        
+      }
 
-		objOwner.numKills++;
-	}
+  	}
   },
   //-----------------------------
   on_collision: function (msg) {
