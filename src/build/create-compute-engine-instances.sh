@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 set -ue
-set -v
+#set -v
 
 # constants
 PROJECT=568961353999
