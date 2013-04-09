@@ -2,4 +2,7 @@
 #
 set -uex
 
-dev_appserver.py --address 0.0.0.0 --skip_sdk_update_check --backends . $*
+dev_appserver.py \
+  --host 0.0.0.0 \
+  --skip_sdk_update_check yes \
+  . $*
