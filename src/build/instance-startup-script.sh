@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -x
+set -uex
 
 is_compute=$(grep Google /sys/firmware/dmi/entries/1-0/raw)
 if [ -z "$is_compute" ]
@@ -63,9 +62,9 @@ GAME_DIR=gritsgame/src
 # run the game server
 while [ true ]
 do
-  (cd $GAME_DIR;
+  (set +e
+   cd $GAME_DIR
    NODE_ENV=production node games-server/main.js
   )
   sleep 30
 done
-
