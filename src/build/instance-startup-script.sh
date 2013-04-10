@@ -62,9 +62,8 @@ GAME_DIR=gritsgame/src
 # run the game server
 while [ true ]
 do
-  (set +e
-   cd $GAME_DIR
-   NODE_ENV=production node games-server/main.js
+  (cd $GAME_DIR
+   NODE_ENV=production node games-server/main.js || true
   )
   sleep 30
 done
